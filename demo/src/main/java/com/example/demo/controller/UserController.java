@@ -18,7 +18,7 @@ import com.example.demo.reposatory.UserReposatory;
 import com.example.demo.service.UserService;
 
 @RestController
-// @RequestMapping("example/api")
+@RequestMapping("api")
 public class UserController {
 
     @Autowired

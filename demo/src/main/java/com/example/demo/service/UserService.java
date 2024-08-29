@@ -31,9 +31,9 @@ public class UserService {
     public User mapToEntity(UserDTO u) {
         User user = new User();
         user.setEmail(u.getEmail());
-        user.setId(u.getId());
+        // user.setId(u.getId());
         user.setPassword(u.getPassword());
-        user.setCreatedAt(u.getCreatedAt());
+        // user.setCreatedAt(u.getCreatedAt());
         user.setUserName(u.getUserName());
 
         return user;
@@ -42,6 +42,7 @@ public class UserService {
     public ResponseEntity<?> saveUser(UserDTO userDTO) {
         User user = mapToEntity(userDTO);
         user.setCreatedAt(LocalDate.now());
+        userReposatory.save(user);
         return ResponseEntity.ok().body(userDTO + "User Saved Successfully");
     }
 
