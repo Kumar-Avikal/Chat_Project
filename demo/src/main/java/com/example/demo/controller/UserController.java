@@ -26,9 +26,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @PostMapping("/api/login")
+    public ResponseEntity<?> login(@RequestBody String email, String password) {
+        return userService.login(email, password);
     }
 
     @GetMapping("/getAllUser")

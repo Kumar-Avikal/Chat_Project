@@ -31,4 +31,6 @@ public class User {
     private String password;
     @Column(name = "createdAt")
     private LocalDate createdAt;
+    @Column(name = "role")
+    private String role;
 }
