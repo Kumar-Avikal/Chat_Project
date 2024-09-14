@@ -47,10 +47,14 @@ public class UserService {
     }
 
     public ResponseEntity<?> saveUser(UserDTO userDTO) {
+        Optional<User> oUser = userReposatory.findByEmail(userDTO.getEmail());
+        if (oUser.isPresent()) {
+            return ResponseEntity.ok().body("email already registered please log-in");
+        }
         User user = mapToEntity(userDTO);
         user.setCreatedAt(LocalDate.now());
         userReposatory.save(user);
-        return ResponseEntity.ok().body("User Saved Successfully: " + userDTO.getUserName());
+        return ResponseEntity.ok().body("User Saved Successfully");
     }
 
     public ResponseEntity<?> getUserById(Long id) {
@@ -75,7 +79,7 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user);
 
         UserDTO loggedInUser = mapToDTO(user);
         return ResponseEntity.ok().body(new AuthenticationResponse(loggedInUser, token));

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.UserCred;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.User;
 import com.example.demo.reposatory.UserReposatory;
@@ -26,14 +27,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/api/login")
-    public ResponseEntity<?> login(@RequestBody String email, String password) {
-        return userService.login(email, password);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserCred cred) {
+        return userService.login(cred.getEmail(), cred.getPassword());
     }
 
     @GetMapping("/getAllUser")
     public List<UserDTO> getAllUser() {
         List<User> userList = userReposatory.findAll();
+
         List<UserDTO> users = new ArrayList<UserDTO>();
 
         for (User u : userList) {

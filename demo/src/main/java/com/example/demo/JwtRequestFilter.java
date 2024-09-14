@@ -35,7 +35,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // skip filter if user is creating an account or is trying to log-in
         if ("/api/login".equals(urlPath)
                 || "/api/saveUser".equals(urlPath) && "POST".equalsIgnoreCase(request.getMethod())) {
-            System.out.println("Skipping filter for URL: " + urlPath);
             chain.doFilter(request, response);
             return;
         }
@@ -45,13 +44,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
-        // Check if the Authorization header is present and starts with "Bearer"
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
         }
 
-        // Validate token and set security context
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);

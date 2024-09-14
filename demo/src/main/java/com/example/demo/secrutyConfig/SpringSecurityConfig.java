@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
                                                 request -> new CorsConfiguration().applyPermitDefaultValues()))
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(authorize -> authorize
-                                                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "api/**").permitAll()
                                                 .requestMatchers("/api/public/**", "/api/login", "/api/error",
                                                                 "/api/saveUser", "/api/getAllUser", "/api/getUser/{id}")
                                                 .permitAll()
