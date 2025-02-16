@@ -13,9 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDTO {
     private Long id;
-    private String userName;
+    private String firstName;
+    private String lastName;
+    private String mobileNumber;
     private String email;
     private String password;
     private LocalDate createdAt;
-    private String role;
+    private InvestmentDetails investmentDetails;
 }
